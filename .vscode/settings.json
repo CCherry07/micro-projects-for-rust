@@ -3,6 +3,7 @@
     "./decompress/Cargo.toml",
     "./compression/Cargo.toml",
     "./read-csv/Cargo.toml",
-    "./read-json/Cargo.toml"
+    "./read-json/Cargo.toml",
+    "./write-json/Cargo.toml"
   ]
 }
