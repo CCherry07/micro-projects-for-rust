@@ -1,6 +1,8 @@
 {
   "rust-analyzer.linkedProjects": [
     "./decompress/Cargo.toml",
-    "./compression/Cargo.toml"
+    "./compression/Cargo.toml",
+    "./read-csv/Cargo.toml",
+    "./read-json/Cargo.toml"
   ]
 }
