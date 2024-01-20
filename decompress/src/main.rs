@@ -1,16 +1,30 @@
-use std::{env::args, fs, io, path, process};
+use std::{env::args, ffi::OsStr, fs, io, path, process};
 use zip::read::ZipArchive;
 fn main() {
     process::exit(real_main())
 }
 
 fn real_main() -> i32 {
-    let args: Vec<_> = args().collect();
-    if args.len() < 2 {
+    let args: Vec<_> = args().skip(1).collect();
+    if args.len() < 1 {
         eprintln!("参数错误");
         return 1;
     }
     let fname = path::Path::new(&*args[0]);
+    if fname.is_dir() {
+        eprintln!("这不是一个文件路径:{:?}", fname.file_name().unwrap());
+        return 1;
+    }
+    if fname.is_file() {
+        let is_zip = match fname.extension().and_then(OsStr::to_str) {
+            Some("zip") => true,
+            _ => false,
+        };
+        if !is_zip {
+            eprintln!("不是一个zip文件");
+            return 1;
+        }
+    }
     let file = fs::File::open(fname).unwrap();
     let mut archive = ZipArchive::new(file).unwrap();
 
@@ -49,7 +63,7 @@ fn real_main() -> i32 {
             let mut out_file = fs::File::create(&output_path).unwrap();
             io::copy(&mut file, &mut out_file).unwrap();
         }
-        
+
         #[cfg(unix)]
         {
             use std::os::unix::fs::PermissionsExt;
