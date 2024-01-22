@@ -5,6 +5,7 @@
     "./read-csv/Cargo.toml",
     "./read-json/Cargo.toml",
     "./write-json/Cargo.toml",
-    "./request/Cargo.toml"
+    "./request/Cargo.toml",
+    "./async_await/Cargo.toml",
   ]
 }
